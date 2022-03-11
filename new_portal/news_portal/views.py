@@ -67,16 +67,16 @@ class Postsearch(ListView):
 
 
 @login_required
-def subscribe(request):
+def subscribe(request, **kwargs):
     user = request.user
-    cat_id = request.POST('category_id')
+    cat_id = kwargs['pk']
     category = Category.objects.get(pk=int(cat_id))
 
-    if user not in category.subscribe.all():
-        category.subscribe.add(user)
+    if user not in category.subscribers.all():
+        category.subscribers.add(user)
 
     else:
-        category.subscribe.remove(user)
+        category.subscribers.remove(user)
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 

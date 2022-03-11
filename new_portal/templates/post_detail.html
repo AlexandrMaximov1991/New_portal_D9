@@ -16,7 +16,6 @@ News
 
 
 
-
      {% if request.user.is_authenticated %}
         <p>
             Вы можете подписаться на новости категории:
@@ -27,10 +26,10 @@ News
                     <br>{{ category.categoryname }}
                 {% endif %}
             {% endfor %}
+        {% endif %}
+ </p>
             <h6>Ваши текущие подписки:</h6>
-                {% for category in user_category %}
-                <br>{{ category.categoryname }}
-            {% endfor %}
-        </p>
-    {% endif %}
+                {{ User }}
+
+
 {% endblock content %}
