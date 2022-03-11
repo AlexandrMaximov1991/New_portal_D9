@@ -26,13 +26,13 @@ News
                     <br>{{ category.categoryname }}
                 {% endif %}
             {% endfor %}
-        {% endif %}
 
- </p>
+
 
           <h6>Ваши текущие подписки:</h6>
             {% for category in user_category %}
                 <br>{{ category.categoryname }}
             {% endfor %}
-
+</p>
+ {% endif %}
 {% endblock content %}
