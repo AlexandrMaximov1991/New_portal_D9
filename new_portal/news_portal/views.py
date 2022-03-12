@@ -26,9 +26,9 @@ class PostList(ListView):
 
 
 class PostDetailView(DetailView):
-    model = Post
+    # model = Post
     template_name = 'post_detail.html'
-    queryset = Post.objects.filter()
+    queryset = Post.objects.all()
 
 
     def get_context_data(self, **kwargs):
@@ -89,6 +89,3 @@ def subscribe(request, **kwargs):
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
-def get_context_data():
-    context = Post.postCategory.all
-    return context

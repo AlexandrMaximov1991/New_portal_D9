@@ -16,7 +16,7 @@ News
 
 
 
-     {% if request.user.is_authenticated %}
+{% if request.user.is_authenticated %}
         <p>
             Вы можете подписаться на новости категории:
             {% for category in post.postCategory.all %}
@@ -31,9 +31,8 @@ News
              {% for category in post.postCategory.all %}
              {% if category in user_category %}
             <a href="{% url 'subscribe' category.pk %}"><br>{{ category.categoryname }}</a>
-
             {% endif %}
             {% endfor %}
 </p>
- {% endif %}
+{% endif %}
 {% endblock content %}
