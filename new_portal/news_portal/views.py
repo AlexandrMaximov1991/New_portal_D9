@@ -26,8 +26,16 @@ class PostList(ListView):
 
 
 class PostDetailView(DetailView):
+    model = Post
     template_name = 'post_detail.html'
-    queryset = Post.objects.all()
+    queryset = Post.objects.filter()
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.kwargs.get('pk')
+        context['user_category'] = Category.objects.filter(post__pk=id, subscribers=self.request.user)
+        return context
 
 
 class PostCreateView(PermissionRequiredMixin, CreateView):

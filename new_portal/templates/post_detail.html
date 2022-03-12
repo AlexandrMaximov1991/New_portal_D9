@@ -27,11 +27,12 @@ News
                 {% endif %}
             {% endfor %}
 
+          <h6>Ваши текущие подписки (если вы хотите отписаться, то просто нажмите на название подписки):</h6>
+             {% for category in post.postCategory.all %}
+             {% if category in user_category %}
+            <a href="{% url 'subscribe' category.pk %}"><br>{{ category.categoryname }}</a>
 
-
-          <h6>Ваши текущие подписки:</h6>
-            {% for category in user_category %}
-                <br>{{ category.categoryname }}
+            {% endif %}
             {% endfor %}
 </p>
  {% endif %}
