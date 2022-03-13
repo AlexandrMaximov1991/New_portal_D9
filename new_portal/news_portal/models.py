@@ -33,7 +33,7 @@ class Category(models.Model):
     def __str__(self):
         return f'Категория {self.categoryname}'
 
-    subscribers = models.ManyToManyField(User, related_name='subscribed_categories')
+    subscribers = models.ManyToManyField(User, related_name='subscribers')
 
 
 
