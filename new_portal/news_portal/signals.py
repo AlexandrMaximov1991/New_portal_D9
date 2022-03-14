@@ -69,17 +69,17 @@ def post_save_post(created, **kwargs):  # получить параметры м
 
 @receiver(m2m_changed, sender=Post.postCategory.through)
 def notify_managers_posts(instance, action, pk_set, *args, **kwargs):
-    if action == 'post_create':
+    if action == 'post_add':
         html_content = render_to_string(
-            'post_create.html',
+            'mail_create.html',
             {'post': instance, }
         )
         for pk in pk_set:
             category = Category.objects.get(pk=pk)
             recipients = [user.email for user in category.subscribers.all()]
             msg = EmailMultiAlternatives(
-                subject=f'На сайте NewsPaper новая статья: {instance.Posttitle}',
-                body=f'На сайте NewsPaper новая статья: {instance.Posttitle}',
+                subject=f'На сайте NewsPaper новая статья: {instance.postTitle}',
+                body=f'На сайте NewsPaper новая статья: {instance.postTitle}',
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 to=recipients
             )
