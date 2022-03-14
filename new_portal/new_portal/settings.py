@@ -164,7 +164,7 @@ ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'maximovyaa'
-EMAIL_HOST_PASSWORD = 'Marija21112014'
+EMAIL_HOST_PASSWORD = 'Marija01082017'
 EMAIL_USE_SSL = True
 
 ADMINS = [
