@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><a href="http://127.0.0.1:8000{% url 'post_detail' post.id %}">{{ post.posttitle }}</a></h1>
-    <h3>{{ post.posttext|truncatechars:50 }}</h3>
+
+<h2>Здравствуйте!
+    {{ body }}
+<p>В категории на которую вы подписаны, добавилась новая публикация!</p></h2>
+    <h3><a href="http://127.0.0.1:8000{% url 'post_detail' post.id %}">Посмотреть ее можно по ссылке!</a></h3>
+
 </body>
 </html>

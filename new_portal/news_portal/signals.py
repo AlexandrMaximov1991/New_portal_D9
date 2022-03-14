@@ -3,32 +3,8 @@ from django.db.models.signals import post_save, m2m_changed
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
-from django.contrib.auth.models import User
+
 from .models import Post, Category
-
-
-@receiver(post_save, sender=User)
-def post_save_post(created, **kwargs):
-    # берём объект созданного пользователя
-    user_instance = kwargs['instance']
-    email_from = settings.DEFAULT_FROM_EMAIL
-
-    # если он создан, а не изменён
-    if created:
-        subject = 'Приветствуем у нас на портале!'
-        text_message = 'Приветственный текст'
-
-        # рендерим в строку шаблон письма и передаём туда переменные, которые в нём используем
-        render_html_template = render_to_string('hello_message.html', {'user': user_instance,
-                                                                       'subject': subject,
-                                                                       'text': text_message})
-
-        # формируем письмо
-        msg = EmailMultiAlternatives(subject, text_message, email_from, [user_instance.email, ])
-        # прикрепляем хтмл-шаблон
-        msg.attach_alternative(render_html_template, 'text/html')
-        # отправляем
-        msg.send()
 
 
 # при сохранении объекта модели Пост будет срабатывать этот сигнал
@@ -53,11 +29,11 @@ def post_save_post(created, **kwargs):  # получить параметры м
         text_message = f'В категориях, на которые вы подписаны появилась новая статья:'
     else:
         # отправка письма с ссылкой на статью и помекой об изменении
-        subject = 'Приходит с сигнала. В категориях, на которые вы подписаны была изменена статья'
-        text_message = f'В категориях, на которые вы подписаны была изменена статья:'
+        subject = 'Произошли изменения в публикации!'
+        text_message = f'В публикации произошли изменения! Они доступны  '
 
     # рендерим в строку шаблон письма и передаём туда переменные, которые в нём используем
-    render_html_template = render_to_string('post_create.html', {'post': post_instance, 'subject': subject})
+    render_html_template = render_to_string('send.html', {'post': post_instance, 'subject': subject, 'text_message': text_message})
 
     # формируем письмо
     msg = EmailMultiAlternatives(subject, text_message, email_from, list(subscribers_list))
