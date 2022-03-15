@@ -7,8 +7,8 @@
 <body>
     <h2>{{ subject }}</h2>
 
-
-    <p><a href="http://127.0.0.1:8000{% url 'post_detail' post.id %}">{{ post.postText|truncatechars:100 }}</a></p>
-
+    {% for post in posts %}
+    <p><a href="http://127.0.0.1:8000/news/{{ post.id }}" target="_blank">{{ post.postTitle }}</a> {{ post.preview }}</p>
+    {% endfor %}
 </body>
 </html>
