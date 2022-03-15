@@ -4,6 +4,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 
+
 from .models import Post, Category
 
 
@@ -48,16 +49,17 @@ def notify_managers_posts(instance, action, pk_set, *args, **kwargs):
     if action == 'post_add':
         html_content = render_to_string(
             'mail_create.html',
-            {'post': instance, }
+            {'post': instance,
+             }
         )
         for pk in pk_set:
             category = Category.objects.get(pk=pk)
             recipients = [user.email for user in category.subscribers.all()]
             msg = EmailMultiAlternatives(
                 subject=f'На сайте NewsPaper новая статья: {instance.postTitle}',
-                body=f'На сайте NewsPaper новая статья: {instance.postTitle}',
+
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 to=recipients
             )
-            msg.attach_alternative(html_content, "text/html")
+            msg.attach_alternative(html_content, "text/html",)
             msg.send()
