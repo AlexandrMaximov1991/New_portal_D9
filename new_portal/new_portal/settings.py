@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news_portal.apps.NewsPortalConfig',
+    'django_apscheduler',
 
     'django.contrib.sites',
     'django.contrib.flatpages',
@@ -175,3 +176,9 @@ SERVER_EMAIL = 'maximovyaa@yandex.ru'  # адрес отправителя
 
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' # если вы используете Яндекс, то не забудьте добавить + ‘@yandex.ru’
+
+# формат даты, которую будет воспринимать наш задачник (вспоминаем модуль по фильтрам)
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
