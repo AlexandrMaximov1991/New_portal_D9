@@ -2,7 +2,7 @@ import logging
 from _multiprocessing import send
 
 from collections import defaultdict
-from datetime import datetime, timedelta, tzinfo
+import datetime
 
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -50,7 +50,9 @@ def send_posts_to_email_weekly():
     """
     # берём посты за последние 7 дней
     # здесь мы получаем queryset
-    last_week_posts_qs = Post.objects.filter(datetime.now(+3)-timedelta(days=7))
+    today = datetime.datetime.now()
+    last_week = today - datetime.timedelta(days=7)
+    last_week_posts_qs = Post.objects.filter(pubData__gte=last_week)
 
 
     # собираем в словарь список пользователей и список постов, которые им надо разослать
@@ -81,7 +83,10 @@ class Command(BaseCommand):
         # добавляем работу нашему задачнику
         scheduler.add_job(
             send_posts_to_email_weekly,
-            trigger=CronTrigger(second="*/5"),
+            trigger=CronTrigger(day_of_week="mon",
+                                hour="09",
+                                minute="00"
+                                ),
             # То же, что и интервал, но задача тригера таким образом более понятна django
             id="send_posts_to_email_weekly",  # уникальный айди
             max_instances=1,
