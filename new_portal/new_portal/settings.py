@@ -164,15 +164,15 @@ ACCOUNT_FORMS = {'signup': 'sign.models.CommonSignupForm'}
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'maximovyaa'
-EMAIL_HOST_PASSWORD = 'Marija01082017'
+EMAIL_HOST_USER = 'mail@mail.com'
+EMAIL_HOST_PASSWORD = 'password'
 EMAIL_USE_SSL = True
 
 ADMINS = [
-    ('Alexandr', 'maximovyaa@gmail.com'),
+    ('Name', 'mail@mail.com'),
 ]
 
-SERVER_EMAIL = 'maximovyaa@yandex.ru'  # адрес отправителя
+SERVER_EMAIL = 'mail@yandex.ru'  # адрес отправителя
 
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' # если вы используете Яндекс, то не забудьте добавить + ‘@yandex.ru’
