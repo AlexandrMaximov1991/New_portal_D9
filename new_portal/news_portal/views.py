@@ -26,17 +26,27 @@ class PostList(ListView):
 
 
 class PostDetailView(DetailView):
-    # model = Post
+    model = Post
     template_name = 'post_detail.html'
     queryset = Post.objects.all()
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         id = self.kwargs.get('pk')
-        context['user_category'] = Category.objects.filter(post__pk=id, subscribers=self.request.user)
+        categories = []
+        post = Post.objects.get(pk=id)
+        for cat in post.postCategory.all():
+            if self.request.user in cat.subscribers.all():
+                categories.append(cat)
+        context['user_category'] = categories
         return context
 
+
+ # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     id = self.kwargs.get('pk')
+    #     context['user_category'] = Category.objects.filter(post__pk=id, subscribers=self.request.user)
+    #     return context
 
 class PostCreateView(PermissionRequiredMixin, CreateView):
     permission_required = ('news_portal.add_post',)
